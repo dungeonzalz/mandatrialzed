@@ -2,19 +2,20 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-// Konfigurasi Vite final, siap deploy ke Vercel
 export default defineConfig({
+  // Arahkan ke folder client karena index.html ada di sana
+  root: path.resolve(__dirname, "client"),
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "@assets": path.resolve(__dirname, "src/assets"),
-      "@components": path.resolve(__dirname, "src/components"),
-      "@shared": path.resolve(__dirname, "src/shared"),
+      "@": path.resolve(__dirname, "client/src"),
+      "@assets": path.resolve(__dirname, "client/src/assets"),
+      "@components": path.resolve(__dirname, "client/src/components"),
     },
   },
   build: {
-    outDir: "dist",        // Vercel membaca folder dist
+    // Output build YAML akan di folder root/dist
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
   server: {
